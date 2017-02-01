@@ -3,16 +3,18 @@ package regressions
 import "testing"
 
 var testDataPoints = []DataPoint{
-	dataPoint{x: 6, y: 30},
-	dataPoint{x: 20, y: 12},
-	dataPoint{x: 25, y: 10},
-	dataPoint{x: 26, y: 9},
-	dataPoint{x: 30, y: 8},
-	dataPoint{x: 37, y: 6},
-	dataPoint{x: 42, y: 5},
-	dataPoint{x: 47, y: 4},
-	dataPoint{x: 54, y: 3},
-	dataPoint{x: 64, y: 2},
+	dataPoint{x: 0.85, y: 91},
+	dataPoint{x: 1, y: 78},
+	dataPoint{x: 2, y: 64},
+	dataPoint{x: 3, y: 54},
+	dataPoint{x: 4, y: 47},
+	dataPoint{x: 5, y: 42},
+	dataPoint{x: 6, y: 37},
+	dataPoint{x: 8, y: 30},
+	dataPoint{x: 9, y: 26},
+	dataPoint{x: 10, y: 25},
+	dataPoint{x: 12, y: 20},
+	dataPoint{x: 30, y: 6},
 }
 
 func evaluateRegression(t *testing.T, r Regression) {
