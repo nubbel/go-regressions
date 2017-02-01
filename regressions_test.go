@@ -5,6 +5,7 @@ import "testing"
 var testDataPoints = []DataPoint{
 	dataPoint{x: 6, y: 30},
 	dataPoint{x: 20, y: 12},
+	dataPoint{x: 25, y: 10},
 	dataPoint{x: 26, y: 9},
 	dataPoint{x: 30, y: 8},
 	dataPoint{x: 37, y: 6},

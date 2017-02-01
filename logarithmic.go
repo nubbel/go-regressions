@@ -3,14 +3,14 @@ package regressions
 import "math"
 
 type logarithmic struct {
-	linear
+	base    Regression
 	LogFunc func(float64) float64
 }
 
 // NewLogarithmic returns a new Regression for logarithmic regression.
 func NewLogarithmic() Regression {
 	return &logarithmic{
-		linear:  linear{},
+		base:    NewLinear(),
 		LogFunc: math.Log, // natural logarithm
 	}
 }
@@ -31,10 +31,23 @@ func (r *logarithmic) Fit(dps ...DataPoint) error {
 		logDps[i] = dataPoint{logX, dp.GetY()}
 	}
 
-	return r.linear.Fit(logDps...)
+	return r.base.Fit(logDps...)
 }
 
 // Predict implements the Predicter interface.
 func (r *logarithmic) Predict(x float64) (float64, error) {
-	return r.linear.Predict(r.LogFunc(x))
+	logX := r.LogFunc(x)
+	if math.IsNaN(logX) {
+		return 0, ErrLogIsNaN
+	}
+	if math.IsInf(logX, 0) {
+		return 0, ErrLogIsInf
+	}
+
+	return r.base.Predict(logX)
+}
+
+// GetR2 implements the Regression interface.
+func (r *logarithmic) GetR2() float64 {
+	return r.base.GetR2()
 }
