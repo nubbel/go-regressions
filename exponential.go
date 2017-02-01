@@ -22,12 +22,10 @@ func (r *exponential) Fit(dps ...DataPoint) error {
 	logDps := make([]DataPoint, len(dps))
 
 	for i, dp := range dps {
-		logY := r.LogFunc(dp.GetY())
-		if math.IsNaN(logY) {
-			return ErrLogIsNaN
-		}
-		if math.IsInf(logY, 0) {
-			return ErrLogIsInf
+		y := dp.GetY()
+		logY := r.LogFunc(y)
+		if math.IsNaN(logY) || math.IsInf(logY, 0) {
+			return ErrLogUndefined(y)
 		}
 
 		logDps[i] = dataPoint{dp.GetX(), logY}
@@ -47,12 +45,6 @@ func (r *exponential) Predict(x float64) (float64, error) {
 	slope := r.base.impl.Coeff(1)
 
 	y := r.ExpFunc(intercept) * r.ExpFunc(slope*x)
-	if math.IsNaN(y) {
-		return 0, ErrLogIsNaN
-	}
-	if math.IsInf(y, 0) {
-		return 0, ErrLogIsInf
-	}
 
 	return y, nil
 }

@@ -1,8 +1,10 @@
 package regressions
 
-import "errors"
+import "fmt"
 
-var (
-	ErrLogIsNaN = errors.New("Logarithm is undefined")
-	ErrLogIsInf = errors.New("Logarithm is Infinity")
-)
+// ErrLogUndefined signifies that the logarithm of the underlying value is undefined.
+type ErrLogUndefined float64
+
+func (f ErrLogUndefined) Error() string {
+	return fmt.Sprintf("Logarithm of %g is undefined.", float64(f))
+}
