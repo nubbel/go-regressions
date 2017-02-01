@@ -10,10 +10,18 @@ type exponential struct {
 
 // NewExponential returns a new Regression for exponential regression.
 func NewExponential() Regression {
+	return NewExponentialWithLogExpFunc(
+		math.Log, // natural logarithm
+		math.Exp, // base-e exponential
+	)
+}
+
+// NewExponentialWithLogExpFunc returns a new Regression for log-log regression.
+func NewExponentialWithLogExpFunc(log, exp func(float64) float64) Regression {
 	return &exponential{
 		base:    linear{},
-		LogFunc: math.Log, // natural logarithm
-		ExpFunc: math.Exp, // base-e exponential
+		LogFunc: log,
+		ExpFunc: exp,
 	}
 }
 

@@ -1,9 +1,12 @@
 package regressions
 
-import "testing"
+import (
+	"math"
+	"testing"
+)
 
 func TestLogLog(t *testing.T) {
-	r := NewLogLog()
+	r := NewLogLogWithLogFunc(math.Log1p)
 	err := r.Fit(testDataPoints...)
 	if err != nil {
 		t.Fatal(err)

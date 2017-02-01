@@ -9,9 +9,16 @@ type logarithmic struct {
 
 // NewLogarithmic returns a new Regression for logarithmic regression.
 func NewLogarithmic() Regression {
+	return NewLogarithmicWithLogFunc(
+		math.Log, // natural logarithm
+	)
+}
+
+// NewLogarithmicWithLogFunc returns a new Regression for logarithmic regression.
+func NewLogarithmicWithLogFunc(log func(float64) float64) Regression {
 	return &logarithmic{
 		base:    NewLinear(),
-		LogFunc: math.Log, // natural logarithm
+		LogFunc: log,
 	}
 }
 
