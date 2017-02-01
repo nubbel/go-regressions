@@ -29,7 +29,3 @@ func (r *linear) Predict(x float64) (float64, error) {
 func (r *linear) GetR2() float64 {
 	return r.impl.R2
 }
-
-func (r *linear) String() string {
-	return r.impl.String()
-}
